@@ -66,7 +66,7 @@ struct ContentView: View {
                     }
                 }.padding()
             }
-        }.showSnackbar(isShowing: $showingMessage, message: "Task Saved!")
+        }.showToast(isShowing: $showingMessage, message: "Task Saved!")
         //        .padding()
     }
 }

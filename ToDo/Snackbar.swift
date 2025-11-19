@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SnackbarModifier: ViewModifier {
+struct ToastModifier: ViewModifier {
     @Binding var isShowing: Bool
     let message: String
     
@@ -30,6 +30,7 @@ struct SnackbarModifier: ViewModifier {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
                 .zIndex(1) // Ensures it stays on top
                 .onAppear {
+                    if isShowing { return }
                     // Auto-dismiss after 1 seconds
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         withAnimation {
@@ -44,7 +45,7 @@ struct SnackbarModifier: ViewModifier {
 
 // I changed the name from 'snackbar' to 'showSnackbar'
 extension View {
-    func showSnackbar(isShowing: Binding<Bool>, message: String) -> some View {
-        self.modifier(SnackbarModifier(isShowing: isShowing, message: message))
+    func showToast(isShowing: Binding<Bool>, message: String) -> some View {
+        self.modifier(ToastModifier(isShowing: isShowing, message: message))
     }
 }
